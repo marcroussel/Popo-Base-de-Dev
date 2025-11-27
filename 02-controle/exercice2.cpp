@@ -37,6 +37,22 @@
 #include <array>
 #include <iostream>
 
+void afficher_grille(std::array< std::array < char, 3 >, 3> grille) {
+  std::cout << "_____________\n";
+
+  // Parcours des lignes de la grille
+  for (int i = 0; i < (int)grille.size(); i++) {
+    std::cout << " |";
+
+    // Parcours des cases de la ligne
+    for (int j = 0; j < (int)grille[i].size(); j++) {
+      std::cout << " " << grille[i][j] << " |";
+    }
+
+    std::cout << "_____________\n";
+  }
+}
+
 int main(int, char **) { 
 
     // Q1

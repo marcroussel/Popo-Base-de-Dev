@@ -37,4 +37,31 @@
 #include <array>
 #include <iostream>
 
-int main(int, char **) { return 0; }
+int main(int, char **) { 
+
+    // Q1
+    // Définition de la grille
+    std::array< std::array < char, 3 >, 3> grille;
+
+    // Q2
+    // Variable définissant la fin
+    bool fin = false;
+
+    // Q3
+    // Variable définissant le symbole à utiliser
+    char symbole = 'X';
+
+    while (!fin) {
+
+      // Q3
+      if (symbole == 'X') {
+        symbole = 'O';
+      }
+      else {
+        symbole = 'X';
+      }
+
+    }
+
+    return 0;
+}

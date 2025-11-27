@@ -38,11 +38,12 @@
 #include <iostream>
 
 void afficher_grille(std::array< std::array < char, 3 >, 3> grille) {
+  std::cout << "___0___1___2_\n";
   std::cout << "_____________\n";
 
   // Parcours des lignes de la grille
   for (int i = 0; i < (int)grille.size(); i++) {
-    std::cout << " |";
+    std::cout << i << "|";
 
     // Parcours des cases de la ligne
     for (int j = 0; j < (int)grille[i].size(); j++) {
@@ -67,7 +68,24 @@ int main(int, char **) {
     // Variable définissant le symbole à utiliser
     char symbole = 'X';
 
+    // Variables définissant les coordonnées du prochain coup
+    int x;
+    int y;
+
     while (!fin) {
+
+      // Q4
+      // Affichage de la grille
+      afficher_grille(grille);
+      
+      // Entrée utilisateur
+      std::cout << "\n" << symbole << ", à vous de jouer ! Sélectionnez les coordonnées de la case à jouer (colonne puis ligne) \n";
+
+      std::cout << "Colonne : ";
+      std::cin >> x;
+
+      std::cout << "Ligne : ";
+      std::cin >> y;
 
       // Q3
       if (symbole == 'X') {

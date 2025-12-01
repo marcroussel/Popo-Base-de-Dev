@@ -105,6 +105,27 @@ fraction operator*(fraction const& frac_gauche, int ent_droite)
 
 
 
+/// ---------- DIVISION ---------- ///
+// division fraction/fraction
+fraction operator/(fraction const& frac_gauche, fraction const& frac_droite)
+{
+  return {frac_gauche.num * frac_droite.denom, frac_gauche.denom * frac_droite.num};
+}
+
+// division entier/fraction
+fraction operator/(int ent_gauche, fraction const& frac_droite)
+{
+  return {frac_droite.num, frac_droite.denom * ent_gauche};
+}
+
+// division fraction/entier
+fraction operator/(fraction const& frac_gauche, int ent_droite)
+{
+  return {frac_gauche.num, frac_gauche.denom * ent_droite};
+}
+
+
+
 /// ---------- OPÉRATEURS DE FLUX ---------- ///
 // Flux de sortie
 std::ostream& operator<<(std::ostream &os, fraction const& f) {
@@ -127,7 +148,7 @@ int main(int, char **)
   std::cout << "f1 + 3 = " << (f1 + 3) << "\n";
   std::cout << "1 + f2 = " << (1 + f2) << "\n";
 
-  std::cout << "// ----- Tests des soustractions ----- //\n";
+  std::cout << "\n// ----- Tests des soustractions ----- //\n";
   fraction f4{8, 6};
   fraction f5{2, 3};
   fraction f6 = f4 - f5;
@@ -136,11 +157,17 @@ int main(int, char **)
   std::cout << "f4 - 2 = " << (f4 - 2) << "\n";
   std::cout << "1 - f5 = " << (1 - f5) << "\n";
 
-  std::cout << "// ----- Tests des multiplications ----- //\n";
+  std::cout << "\n// ----- Tests des multiplications ----- //\n";
   
   std::cout << "f1 * f5 = " << (f1 * f5) << "\n";
   std::cout << "f4 * 2 = " << (f4 * 2) << "\n";
   std::cout << "-1 * f5 = " << ((-1) * f5) << "\n";
+
+  std::cout << "\n// ----- Tests des divisions ----- //\n";
+  
+  std::cout << "f4 / f2 = " << (f4 / f2) << "\n";
+  std::cout << "f5 / 2 = " << (f5 / 2) << "\n";
+  std::cout << "4 / f1 = " << (4 / f1) << "\n";
 
   return 0;
 }

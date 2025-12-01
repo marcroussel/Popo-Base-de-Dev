@@ -47,7 +47,33 @@ fraction operator+(int ent_gauche, fraction const& frac_droite)
 // addition fraction/entier
 fraction operator+(fraction const& frac_gauche, int ent_droite)
 {
-  auto nv_num = ent_droite * frac_gauche.denom + frac_gauche.num;
+  auto nv_num = frac_gauche.num + ent_droite * frac_gauche.denom;
+  
+  return {nv_num, frac_gauche.denom};
+}
+
+/// ---------- SOUSTRACTION ---------- ///
+// soustraction fraction/fraction
+fraction operator-(fraction const& frac_gauche, fraction const& frac_droite)
+{
+  auto nv_num = frac_gauche.num * frac_droite.denom - frac_droite.num * frac_gauche.denom;
+  auto nv_denom = frac_gauche.denom * frac_droite.denom;
+
+  return {nv_num, nv_denom};
+}
+
+// soustraction entier/fraction
+fraction operator-(int ent_gauche, fraction const& frac_droite)
+{
+  auto nv_num = ent_gauche * frac_droite.denom - frac_droite.num;
+  
+  return {nv_num, frac_droite.denom};
+}
+
+// soustraction fraction/entier
+fraction operator-(fraction const& frac_gauche, int ent_droite)
+{
+  auto nv_num = frac_gauche.num - ent_droite * frac_gauche.denom;
   
   return {nv_num, frac_gauche.denom};
 }
@@ -65,7 +91,7 @@ std::istream& operator>>(std::istream &is, fraction& f) {
 
 int main(int, char **) 
 {
-  // ----- Tests des additions ----- // 
+  std::cout << "\n// ----- Tests des additions ----- //\n";
   fraction f1{4, 3};
   fraction f2{1, 2};
   fraction f3 = f1 + f2;
@@ -73,6 +99,16 @@ int main(int, char **)
   std::cout << "f1 + f2 = " << f3 << "\n";
   std::cout << "f1 + 3 = " << (f1 + 3) << "\n";
   std::cout << "1 + f2 = " << (1 + f2) << "\n";
+
+  std::cout << "// ----- Tests des soustractions ----- //\n";
+  fraction f4{8, 6};
+  fraction f5{2, 3};
+  fraction f6 = f4 - f5;
+
+  std::cout << "f4 - f5 = " << f6 << "\n";
+  std::cout << "f4 - 2 = " << (f4 - 2) << "\n";
+  std::cout << "1 - f5 = " << (1 - f5) << "\n";
+  std::cout << "f5 - 1 = " << (f5 - 1) << "\n";
 
   return 0;
 }

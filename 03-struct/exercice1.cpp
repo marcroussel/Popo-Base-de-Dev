@@ -177,8 +177,8 @@ int main(int, char **)
   std::cout << "f5 / 2 = " << (f5 / 2) << "\n";
   std::cout << "4 / f1 = " << (4 / f1) << "\n";
 
-  std::cout << "\n// ----- Tests de la négation ----- //\n";
+  std::cout << "\n// ----- Tests de la négation & conversion en double ----- //\n";
 
-  std::cout << "-f5 = " << (-f5) << "\n";
+  std::cout << "-f5 = " << (double)(-f5) << "\n";
   return 0;
 }

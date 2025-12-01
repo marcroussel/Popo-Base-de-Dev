@@ -126,6 +126,14 @@ fraction operator/(fraction const& frac_gauche, int ent_droite)
 
 
 
+/// ---------- NÉGATION ---------- ///
+fraction operator-(fraction const& f)
+{
+  return {-f.num, f.denom};
+}
+
+
+
 /// ---------- OPÉRATEURS DE FLUX ---------- ///
 // Flux de sortie
 std::ostream& operator<<(std::ostream &os, fraction const& f) {
@@ -169,5 +177,8 @@ int main(int, char **)
   std::cout << "f5 / 2 = " << (f5 / 2) << "\n";
   std::cout << "4 / f1 = " << (4 / f1) << "\n";
 
+  std::cout << "\n// ----- Tests de la négation ----- //\n";
+
+  std::cout << "-f5 = " << (-f5) << "\n";
   return 0;
 }

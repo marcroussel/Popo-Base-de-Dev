@@ -26,6 +26,8 @@ struct fraction
   }
 };
 
+
+
 /// ---------- ADDITIONS ---------- ///
 // addition fraction/fraction
 fraction operator+(fraction const& frac_gauche, fraction const& frac_droite)
@@ -52,6 +54,8 @@ fraction operator+(fraction const& frac_gauche, int ent_droite)
   return {nv_num, frac_gauche.denom};
 }
 
+
+
 /// ---------- SOUSTRACTION ---------- ///
 // soustraction fraction/fraction
 fraction operator-(fraction const& frac_gauche, fraction const& frac_droite)
@@ -77,6 +81,29 @@ fraction operator-(fraction const& frac_gauche, int ent_droite)
   
   return {nv_num, frac_gauche.denom};
 }
+
+
+
+/// ---------- MULTIPLICATION ---------- ///
+// multiplication fraction/fraction
+fraction operator*(fraction const& frac_gauche, fraction const& frac_droite)
+{
+  return {frac_gauche.num * frac_droite.num, frac_gauche.denom * frac_droite.denom};
+}
+
+// multiplication entier/fraction
+fraction operator*(int ent_gauche, fraction const& frac_droite)
+{
+  return {ent_gauche * frac_droite.num, frac_droite.denom};
+}
+
+// multiplication fraction/entier
+fraction operator*(fraction const& frac_gauche, int ent_droite)
+{
+  return {frac_gauche.num * ent_droite, frac_gauche.denom};
+}
+
+
 
 /// ---------- OPÉRATEURS DE FLUX ---------- ///
 // Flux de sortie
@@ -108,7 +135,12 @@ int main(int, char **)
   std::cout << "f4 - f5 = " << f6 << "\n";
   std::cout << "f4 - 2 = " << (f4 - 2) << "\n";
   std::cout << "1 - f5 = " << (1 - f5) << "\n";
-  std::cout << "f5 - 1 = " << (f5 - 1) << "\n";
+
+  std::cout << "// ----- Tests des multiplications ----- //\n";
+  
+  std::cout << "f1 * f5 = " << (f1 * f5) << "\n";
+  std::cout << "f4 * 2 = " << (f4 * 2) << "\n";
+  std::cout << "-1 * f5 = " << ((-1) * f5) << "\n";
 
   return 0;
 }

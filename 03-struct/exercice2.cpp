@@ -41,15 +41,41 @@ struct Tableau2D {
     return tableau[i * this->largeur + j];
   };
 
-  // Q3
-  std::ostream& operator<<(std::ostream& os) {
-    std::string string_to_return = "";
-
-    for 
-  }
 };
+
+// Q3
+  std::ostream& operator<<(std::ostream& os, Tableau2D const& tab) {
+    
+    std::string str_to_return = "";
+
+    // Pour chaque ligne
+    for (int current_i = 0; current_i < tab.hauteur; current_i++) {
+
+      // Pour chaque colonne, ou case de la ligne
+      for (int current_j = 0; current_j < tab.largeur; current_j++) {
+
+        // Si la case dépasse la borne maximale du tableau, on renvoie '?'
+        if ((current_i * tab.largeur + current_j) >= tab.tableau.size()) {
+          str_to_return += "?";
+        }
+        else {
+          str_to_return += tab(current_i, current_j);
+        }
+
+        str_to_return += ";";
+      };
+
+      str_to_return += "\n";
+    }
+
+    return os << str_to_return;
+  }
 
 int main(int, char **) {
   
+  Tableau2D tab1 = {{2, 8, 6, 1, 1, 7, 5, 14, 9}, 3, 3};
+
+  std::cout << tab1;
+
   return 0;
 }

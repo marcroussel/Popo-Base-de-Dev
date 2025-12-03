@@ -22,5 +22,34 @@
 */
 
 #include <iostream>
+#include <vector>
 
-int main(int, char **) {}
+// Q1 
+struct Tableau2D {
+  std::vector<int> tableau;
+  int hauteur;
+  int largeur;
+
+  Tableau2D(std::vector<int> tableau, int largeur, int hauteur) {
+    this->tableau = tableau;
+    this->largeur = largeur;
+    this->hauteur = hauteur;
+  }
+
+  // Q2
+  int operator()(int i, int j) {
+    return tableau[i * this->largeur + j];
+  };
+
+  // Q3
+  std::ostream& operator<<(std::ostream& os) {
+    std::string string_to_return = "";
+
+    for 
+  }
+};
+
+int main(int, char **) {
+  
+  return 0;
+}

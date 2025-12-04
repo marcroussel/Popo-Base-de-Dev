@@ -46,6 +46,24 @@ struct Tableau2D {
   const int& operator()(int i, int j) const {
     return tableau[i * largeur + j];
   }
+
+  // Q4 
+  int somme(){
+    int somme = 0;
+    for (int i = 0; i < (int)this->tableau.size(); i++) {
+      somme += this->tableau[i];
+    }
+    return somme;
+  }
+
+  // Q5
+  int begin() {
+    return this->tableau[0];
+  }
+
+  int end() {
+    return this->tableau[this->tableau.size() - 1];
+  }
 };
 
 // Q3
@@ -81,11 +99,11 @@ int main(int, char **) {
   
   Tableau2D tab1 = {{2, 8, 6, 1, 1, 7, 5, 14, 9}, 3, 3};
 
-  std::cout << tab1 << "\n";
+  std::cout << tab1 << "\nSomme = " << tab1.somme() << "\nBegin = " << tab1.begin() << "\nEnd = " << tab1.end() << "\n\n";
 
   Tableau2D tab2 = {{2, 8, 6, 1, 1, 7, 5, 14, 9, 8}, 4, 5};
 
-  std::cout << tab2 << "\n";
+  std::cout << tab2 << "\nSomme = " << tab2.somme() << "\nBegin = " << tab2.begin() << "\nEnd = " << tab2.end() << "\n2\n";
 
   return 0;
 }

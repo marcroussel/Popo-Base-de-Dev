@@ -28,6 +28,68 @@
   fonctionnement correct.
 */
 
+#include <fstream>
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
 
-int main(int, char **) {}
+struct Point3D
+{
+    // Q1
+    int x;
+    int y;
+    int z;
+    double w;
+};
+
+// Q2
+std::ostream &operator<<(std::ostream &os, Point3D pt)
+{
+    return os << "(" << pt.x << ", " << pt.y << ", " << pt.z << "; " << pt.w << ")";
+}
+
+// Q3
+// Fonction convertissant un fichier de points 3D en une liste d'objets Point3D
+std::vector<Point3D> file_to_points(std::string filename) 
+{
+    // Vector de Points3D à renvoyer
+    std::vector<Point3D> vec_to_return;
+
+    // Ouverture du fichier
+    std::ifstream file(filename);
+
+    // Conteneur de la ligne lue
+    std::string current_line;
+
+    // Vérification de la bonne ouverture du fichier
+    if (file.is_open()) {
+
+        // Lecture des lignes tant que possible
+        while (std::getline(file, current_line)) {
+            
+            // Passage de la ligne dans une istringstream
+            std::istringstream stream(current_line);
+            // Déclaration des coordonnées 
+            int line_x, line_y, line_z;
+            double line_w;
+
+
+        }
+    }
+
+    // En cas d'erreur d'ouverture
+    else {
+        std::cerr << "(X) ERREUR | Échec de l'ouverture du ficher " << filename << "\n";
+    }
+}
+
+int main(int, char **)
+{
+
+    Point3D pt1 = {1, 0, 3, 2.8};
+
+    std::cout << pt1 << "\n";
+
+    return 0;
+}

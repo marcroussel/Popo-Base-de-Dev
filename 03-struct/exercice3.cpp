@@ -68,13 +68,18 @@ std::vector<Point3D> file_to_points(std::string filename)
         // Lecture des lignes tant que possible
         while (std::getline(file, current_line)) {
             
-            // Passage de la ligne dans une istringstream
-            std::istringstream stream(current_line);
-            // Déclaration des coordonnées 
-            int line_x, line_y, line_z;
-            double line_w;
+          // Passage de la ligne dans une istringstream
+          std::istringstream stream(current_line);
 
+          // Déclaration des coordonnées 
+          int line_x, line_y, line_z;
+          double line_w;
 
+          // Extraction des coordonnées de la ligne
+          stream >> line_x >> line_y >> line_z >> line_w;
+
+          // Création d'un Point3D
+          vec_to_return.push_back({line_x, line_y, line_z, line_w});
         }
     }
 
@@ -82,6 +87,8 @@ std::vector<Point3D> file_to_points(std::string filename)
     else {
         std::cerr << "(X) ERREUR | Échec de l'ouverture du ficher " << filename << "\n";
     }
+
+    return vec_to_return;
 }
 
 int main(int, char **)
@@ -89,7 +96,15 @@ int main(int, char **)
 
     Point3D pt1 = {1, 0, 3, 2.8};
 
+    std::cout << "\n----- Test de l'affichage d'un point 3D -----\n";
     std::cout << pt1 << "\n";
+
+    std::cout << "\n----- Test de l'affichage de plusieurs points 3D, à partir d'un fichier -----\n";
+    std::vector<Point3D> points_from_file = file_to_points("points.tplt");
+
+    for (int i = 0; i < (int)points_from_file.size(); i++) {
+      std::cout << points_from_file[i] << "\n";
+    }
 
     return 0;
 }

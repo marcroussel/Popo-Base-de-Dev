@@ -30,6 +30,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <math.h>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -91,6 +92,32 @@ std::vector<Point3D> file_to_points(std::string filename)
     return vec_to_return;
 }
 
+// Q4 
+// Fonction de calcul de la distance entre deux points pondérés
+double distance(Point3D const& p1, Point3D const& p2)
+{
+  // Calcul des différences entre chaque coordonnées
+  double diff_x = p2.x - p1.x;
+  double diff_y = p2.y - p1.y;
+  double diff_z = p2.z - p1.z;
+
+  std::cout << "(i) DEBUG | diff_x = " << diff_x << "\n";
+  std::cout << "(i) DEBUG | diff_y = " << diff_y << "\n";
+  std::cout << "(i) DEBUG | diff_z = " << diff_z << "\n";
+
+  // Calcul de la distance sans la pondération
+  double dist = sqrt(((diff_x*diff_x) + (diff_y*diff_y) + (diff_z*diff_z)));
+
+  std::cout << "(i) DEBUG | dist = " << dist << "\n";
+
+  // Calcul de la pondération moyenne
+  double avg_pond = (p2.z + p1.z) / 2.0f;
+
+  std::cout << "(i) DEBUG | avg_pond = " << avg_pond << "\n";
+
+  return dist * avg_pond;
+}
+
 int main(int, char **)
 {
 
@@ -105,6 +132,10 @@ int main(int, char **)
     for (int i = 0; i < (int)points_from_file.size(); i++) {
       std::cout << points_from_file[i] << "\n";
     }
+
+    std::cout << "\n----- Test de la distance entre deux points 3D du fichier -----\n";
+    std::cout << distance(points_from_file[1], points_from_file[2]) << "\n";
+
 
     return 0;
 }

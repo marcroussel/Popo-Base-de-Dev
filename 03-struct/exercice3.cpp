@@ -37,105 +37,160 @@
 
 struct Point3D
 {
-    // Q1
-    int x;
-    int y;
-    int z;
-    double w;
+  // Q1
+  int x;
+  int y;
+  int z;
+  double w;
 };
 
 // Q2
 std::ostream &operator<<(std::ostream &os, Point3D pt)
 {
-    return os << "(" << pt.x << ", " << pt.y << ", " << pt.z << "; " << pt.w << ")";
+  return os << "(" << pt.x << ", " << pt.y << ", " << pt.z << "; " << pt.w << ")";
 }
 
 // Q3
 // Fonction convertissant un fichier de points 3D en une liste d'objets Point3D
-std::vector<Point3D> file_to_points(std::string filename) 
+std::vector<Point3D> file_to_points(std::string filename)
 {
-    // Vector de Points3D à renvoyer
-    std::vector<Point3D> vec_to_return;
+  // Vector de Points3D à renvoyer
+  std::vector<Point3D> vec_to_return;
 
-    // Ouverture du fichier
-    std::ifstream file(filename);
+  // Ouverture du fichier
+  std::ifstream file(filename);
 
-    // Conteneur de la ligne lue
-    std::string current_line;
+  // Conteneur de la ligne lue
+  std::string current_line;
 
-    // Vérification de la bonne ouverture du fichier
-    if (file.is_open()) {
+  // Vérification de la bonne ouverture du fichier
+  if (file.is_open())
+  {
 
-        // Lecture des lignes tant que possible
-        while (std::getline(file, current_line)) {
-            
-          // Passage de la ligne dans une istringstream
-          std::istringstream stream(current_line);
+    // Lecture des lignes tant que possible
+    while (std::getline(file, current_line))
+    {
 
-          // Déclaration des coordonnées 
-          int line_x, line_y, line_z;
-          double line_w;
+      // Passage de la ligne dans une istringstream
+      std::istringstream stream(current_line);
 
-          // Extraction des coordonnées de la ligne
-          stream >> line_x >> line_y >> line_z >> line_w;
+      // Déclaration des coordonnées
+      int line_x, line_y, line_z;
+      double line_w;
 
-          // Création d'un Point3D
-          vec_to_return.push_back({line_x, line_y, line_z, line_w});
-        }
+      // Extraction des coordonnées de la ligne
+      stream >> line_x >> line_y >> line_z >> line_w;
+
+      // Création d'un Point3D
+      vec_to_return.push_back({line_x, line_y, line_z, line_w});
     }
+  }
 
-    // En cas d'erreur d'ouverture
-    else {
-        std::cerr << "(X) ERREUR | Échec de l'ouverture du ficher " << filename << "\n";
-    }
+  // En cas d'erreur d'ouverture
+  else
+  {
+    std::cerr << "(X) ERREUR | Échec de l'ouverture du ficher " << filename << "\n";
+  }
 
-    return vec_to_return;
+  return vec_to_return;
 }
 
-// Q4 
+// Q4
 // Fonction de calcul de la distance entre deux points pondérés
-double distance(Point3D const& p1, Point3D const& p2)
+double distance(Point3D const &p1, Point3D const &p2)
 {
   // Calcul des différences entre chaque coordonnées
   double diff_x = p2.x - p1.x;
   double diff_y = p2.y - p1.y;
   double diff_z = p2.z - p1.z;
 
+  /*
   std::cout << "(i) DEBUG | diff_x = " << diff_x << "\n";
   std::cout << "(i) DEBUG | diff_y = " << diff_y << "\n";
   std::cout << "(i) DEBUG | diff_z = " << diff_z << "\n";
+  */
 
   // Calcul de la distance sans la pondération
-  double dist = sqrt(((diff_x*diff_x) + (diff_y*diff_y) + (diff_z*diff_z)));
+  double dist = sqrt(((diff_x * diff_x) + (diff_y * diff_y) + (diff_z * diff_z)));
 
-  std::cout << "(i) DEBUG | dist = " << dist << "\n";
+  // std::cout << "(i) DEBUG | dist = " << dist << "\n";
 
   // Calcul de la pondération moyenne
   double avg_pond = (p2.z + p1.z) / 2.0f;
 
-  std::cout << "(i) DEBUG | avg_pond = " << avg_pond << "\n";
+  // std::cout << "(i) DEBUG | avg_pond = " << avg_pond << "\n";
 
   return dist * avg_pond;
+}
+
+// Q5
+// Fonction retournant le point le plus éloigné
+// du point donné, parmi les points du vecteur donné
+Point3D point_plus_eloigne(Point3D const &p, std::vector<Point3D> const &vec)
+{
+  // Point3D avec la plus grande distance
+  Point3D pt_max_distance = p;
+
+  for (int i = 0; i < (int)vec.size(); i++)
+  {
+    if (distance(p, vec[i]) > distance(p, pt_max_distance)) {
+      pt_max_distance = vec[i];
+    }
+  }
+
+  return pt_max_distance;
+}
+
+// Q6
+// Fonction retournant le point le plus éloigné
+// du point donné, parmi les points du vecteur donné
+Point3D point_plus_proche(Point3D const &p, std::vector<Point3D> const &vec)
+{
+  // Point3D avec la plus petite distance
+
+  int best_id = 0;
+  double best_distance = distance(p, vec[0]);
+
+  for (int i = 1; i < (int)vec.size(); i++)
+  {
+    // Si tu veux ignorer le même point (mêmes coordonnées)
+    if (vec[i].x == p.x && vec[i].y == p.y && vec[i].z == p.z)
+      continue;
+
+    double d = distance(p, vec[i]);
+    if (d < best_distance) {
+      best_distance = d;
+      best_id = i;
+    }
+  }
+
+  return vec[best_id];
 }
 
 int main(int, char **)
 {
 
-    Point3D pt1 = {1, 0, 3, 2.8};
+  Point3D pt1 = {1, 0, 3, 2.8};
 
-    std::cout << "\n----- Test de l'affichage d'un point 3D -----\n";
-    std::cout << pt1 << "\n";
+  std::cout << "\n----- Test de l'affichage d'un point 3D -----\n";
+  std::cout << pt1 << "\n";
 
-    std::cout << "\n----- Test de l'affichage de plusieurs points 3D, à partir d'un fichier -----\n";
-    std::vector<Point3D> points_from_file = file_to_points("points.tplt");
+  std::cout << "\n----- Test de l'affichage de plusieurs points 3D, à partir d'un fichier -----\n";
+  std::vector<Point3D> points_from_file = file_to_points("points.tplt");
 
-    for (int i = 0; i < (int)points_from_file.size(); i++) {
-      std::cout << points_from_file[i] << "\n";
-    }
+  for (int i = 0; i < (int)points_from_file.size(); i++)
+  {
+    std::cout << points_from_file[i] << "\n";
+  }
 
-    std::cout << "\n----- Test de la distance entre deux points 3D du fichier -----\n";
-    std::cout << distance(points_from_file[1], points_from_file[2]) << "\n";
+  std::cout << "\n----- Test de la distance entre deux points 3D du fichier -----\n";
+  std::cout << distance(points_from_file[1], points_from_file[2]) << "\n";
 
+  std::cout << "\n----- Test du point le plus éloigné/proche d'un point sur tous les points du fichier -----\n";
+  Point3D point_ref = {4, 5, -9, 8.47};
+  std::cout << "Point de référence : " << point_ref << "\n";
+  std::cout << "Point le plus éloigné : " << point_plus_eloigne(point_ref, points_from_file) << "\n";
+  std::cout << "Point le plus proche : " << point_plus_proche(point_ref, points_from_file) << "\n";
 
-    return 0;
+  return 0;
 }
